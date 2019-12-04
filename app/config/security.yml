@@ -1,0 +1,51 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+
+    # codificacion de contraseñas para registros y login
+    encoders:
+        AppBundle\Entity\User:
+             algorithm: bcrypt
+             cost: 4
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        user_db_provider:
+            entity:
+               class: AppBundle:User
+               property: email
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            provider: user_db_provider
+            form_login:
+                login_path: /login
+                check_path: /login_check
+            logout:
+                path: /logout
+                target: /
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+                # por defecto, esta funcionalidad está disponible en un
+                # checkbox en el formulario de login, descomenta la
+                # siguiente línea para activarlo siempre.
+                always_remember_me: true
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+# Control de acceso al usuario User normal / User Admin
+    access_control:
+        - { path: ^/(login|register|nick-test), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin_user, roles: [ROLE_ADMIN] }

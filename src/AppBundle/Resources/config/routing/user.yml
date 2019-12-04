@@ -1,0 +1,69 @@
+# ROUTING PARA SISTEMA DE LOGIN
+login:
+  path: /login
+  defaults: { _controller: AppBundle:User:login }
+
+# ROUTING PARA SISTEMA CHEQUEAR EL LOGUEO
+login_check:
+  path: /login_check
+  defaults: { _controller: AppBundle:User:loginCheck }
+
+# ROUTING PARA SISTEMA DE LOGOUT
+logout:
+  path: /logout
+
+
+# ROUTING PARA CONFIGURACIÓN PERFIL DEL USUARIOS
+edit_user:
+  path: /edit/{id}
+  defaults: { _controller: AppBundle:User:edit }
+
+# ROUTING PARA SISTEMA DE REGISTRO
+register:
+  path: /register
+  defaults: { _controller: AppBundle:User:register }
+
+# ROUTING PARA CONSULTA AJAX (¿EXISTE EL NICK DE REGISTRO?)
+user_nick_test:
+  path: /nick-test
+  defaults: { _controller: AppBundle:User:nickTest }
+
+# ROUTING PARA CONFIGURACIÓN PERFIL DEL USUARIOS
+user_edit:
+  path: /my-data
+  defaults: { _controller: AppBundle:User:editUser }
+
+# ROUTING PARA LISTAR USUARIOS
+user_list:
+  path: /people
+  defaults: { _controller: AppBundle:User:users }
+
+# ROUTING PARA BUSCAR USUARIOS
+user_search:
+  path: /search
+  defaults: { _controller: AppBundle:User:search }
+
+# ROUTING PARA MOSTRAR EL PERFIL DE USUARIO
+user_profile:
+  path: /user/{nick}
+  defaults: { _controller: AppBundle:User:profile, nick: null }
+
+
+# PARTE DEL ADMINISTRADOR
+
+
+# ROUTING PARA EL USUARIO ADMINISTRADOR
+admin_user:
+  path: /admin_user
+  defaults: { _controller: AppBundle:User:configureUser }
+
+# ROUTING PARA CONFIGURACIÓN PERFIL DEL USUARIOS DESDE ADMIN
+user_update:
+  path: /user/update/{id}
+  defaults: { _controller: AppBundle:User:editUpdate }
+
+# ROUTING PARA ELIMINAR MENSAJES PRIVADOS
+remove_user:
+  path: /user/remove/{id}
+  defaults: { _controller: AppBundle:User:deleteUser, id: null }
+  methods: [GET]

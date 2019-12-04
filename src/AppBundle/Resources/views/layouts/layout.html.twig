@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} BEFACE {% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.cosmo.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.cosmo.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/styles.css') }}" type="text/css">
+    {% endblock %}
+    {% block javascripts %}
+        <script type="text/javascript">
+        var URL = "{{ app.request.getSchemeAndHttpHost() }}/app_dev.php";
+        </script>
+        <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('node_modules/bootstrap/js/dist/jquery-ias.min.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark  navbar navbar-inverse">
+            <div class="container-fluid">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path("app_homepage") }}">
+                        <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
+                        BEFACE
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                       {% if app.user == null %}
+                       {% else %}
+                        <li>
+                            <a href="{{ path("app_homepage") }}">
+                                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                                &nbsp; Inicio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path("user_list") }}">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                &nbsp; Perfiles
+                            </a>
+                        </li>
+                        <li>
+                            <form action="{{ path('user_search') }}" class="navbar-form navbar-left">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Buscar perfiles" name="search">
+                                </div>
+                                <button type="submit" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </form>
+                        </li>
+                    {% endif %}
+                </ul>
+
+
+                {% if app.user != null  and app.user.role == 'ROLE_USER'  %}
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        {% set user_all_stats = app.user|user_stats %}
+
+                            <li>
+                                <a href="{{ path("private_message_index") }}">
+                                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                    &nbsp; Mensajes Privados
+                                    {% if user_all_stats.message >0 %}
+                                        <span class="badge">{{ user_all_stats.message }}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
+
+                            {% set user_all_stats = app.user|user_stats %}
+
+                                <li>
+                                    <a href="{{ path("notifications_page") }}">
+                                        <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+                                        &nbsp; Notificaciones
+                                        {% if user_all_stats.notifications  >0 %}
+                                            <span class="badge">{{ user_all_stats.notifications }}</span>
+                                        {% endif %}
+                                        
+                                    </a>
+                                </li>
+
+
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <div class="avatar">
+                                            {% if app.user.image == null %}
+                                             <img src="{{ asset('node_modules/images/default.png') }}" alt="{{ app.user.nick }}">
+                                         {% else %}
+                                            <img src="{{ asset('uploads/media/'~app.user.id~'_usermedia/'~app.user.image) }}" alt="{{ app.user.nick }}">
+                                        {% endif %}
+                                    </div>
+
+                                    {{ app.user.name }} {{ app.user.surname }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ path('user_profile', {'nick': app.user.nick}) }}">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                            &nbsp; Mi perfil
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path("user_edit") }}">
+                                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                            &nbsp; Mis datos
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="{{ path("logout") }}">
+                                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                                            &nbsp; Salir
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            &nbsp; Ayuda
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    {% elseif app.user != null  and app.user.role == 'ROLE_ADMIN' %}
+                        <ul class="nav navbar-nav navbar-right">
+
+                            {% set user_all_stats = app.user|user_stats %}
+
+                             
+                                <li>
+                                    <a href="{{ path("private_message_index") }}">
+                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                        &nbsp; Mensajes Privados
+                                        {% if user_all_stats.message >0 %}
+                                            <span class="badge">{{ user_all_stats.message }}</span>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                
+                                <li class="dropdown">
+                                    <a href="{{ path("admin_user") }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                                        &nbsp; Administración de usuarios
+
+                                        </a>
+
+                                        <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ path("admin_publi") }}" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> &nbsp;Publicaciones</a>
+                                        </li>
+
+                                        <li>
+                                           <a href="{{ path("admin_user") }}" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp; Usuarios</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                {% set user_all_stats = app.user|user_stats %}
+
+                                    <li>
+                                        <a href="{{ path("notifications_page") }}">
+                                            <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+                                            &nbsp; Notificaciones
+                                            {% if user_all_stats.notifications  >0 %}
+                                                <span class="badge">{{ user_all_stats.notifications }}</span>
+                                            {% endif %}
+                                        </a>
+                                    </li>
+
+
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <div class="avatar">
+                                                {% if app.user.image == null %}
+                                                 <img src="{{ asset('node_modules/images/default.png') }}" alt="{{ app.user.nick }}">
+                                             {% else %}
+                                                <img src="{{ asset('uploads/media/'~app.user.id~'_usermedia/'~app.user.image) }}" alt="{{ app.user.nick }}">
+                                            {% endif %}
+                                        </div>
+
+                                        {{ app.user.name }} {{ app.user.surname }}
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ path('user_profile', {'nick': app.user.nick}) }}">
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                                &nbsp; Mi perfil
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path("user_edit") }}">
+                                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                                &nbsp; Mis datos
+                                            </a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <a href="{{ path("logout") }}">
+                                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                                                &nbsp; Salir
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                &nbsp; Ayuda
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </div>
+
+
+                </div>
+            </nav>
+        </header>
+        <section id="content">
+            <div class="container">
+                <div class="col-lg-11">
+                 {% for message in app.session.flashbag().get('status') %}   
+                    <div class="alert alert-dismissible alert-success">{{ message }}</div>
+                {% endfor %}
+                <div id="ajax-notifications" class="alert alert-success hidden"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        {% block content %}
+            Content default
+        {% endblock %}
+    </section>
+    <footer id="footer">
+        <hr>
+        <div class="container">
+          <p>Copyright BEFACE, &copy; 2019</p>
+      </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends "AppBundle:layouts:layout.html.twig" %}
+
+{% block content %}
+    <div class="col-lg-4 box-form">
+        <h2>Iniciar sesión</h2>
+        <hr>
+
+        {% if error %}
+            <div class="text-danger">
+                <p>
+                    <strong>
+                        {{ error.messageKey }}
+                    </strong>
+                </p>
+            </div>
+        {% endif %}
+        
+        <form action="{{ path('login_check') }}" method="POST">
+            <label>Email</label>
+            <input type="email" id="username" name="_username" placeholder="Introducir Email" value="{{ last_username }}" class="form-control">
+
+            <label>Contraseña</label>
+            <input type="password" id="password" name="_password" placeholder="Introducir Password" class="form-control">
+
+            <label for="remember_me"> Recuerdame
+                <input type="checkbox" id="remember_me" checked="checked" name="remember_me" style="margin-bottom:15px">
+            </label>
+
+            <p>Aún no estas registrado!  <a href="{{ path("register") }}" style="color:dodgerblue">Registrate gratis</a>.</p>
+
+            <input type="submit" value="Entrar" class="btn btn-primary button">
+            <input type="hidden" name="_target_path" value="/home">
+        </form>
+    </div>
+{% endblock %}

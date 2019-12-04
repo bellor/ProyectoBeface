@@ -1,0 +1,22 @@
+# ROUTING PARA PÁGINA DE MENSAJES PRIVADOS
+private_message_index:
+    path: /private-message
+    defaults: { _controller: AppBundle:PrivateMessage:indexPrivateMessage }
+
+# ROUTING PARA PÁGINA DE MENSAJES ENVIADOS
+private_message_sended:
+    path: /private-message/sended
+    defaults: { _controller: AppBundle:PrivateMessage:sended }
+
+# ROUTING PARA CONSULTA AJAX (GENERAR ALERTAS MENSAJES)
+private_message_notification:
+    path: /private-message/notification/get
+    defaults: { _controller: AppBundle:PrivateMessage:notReaded }
+    methods: [GET]
+
+# ROUTING PARA BORRAR MENSAJE AJAX (ID)
+remove_message:
+  path: /private-message/remove/{id}
+  defaults: { _controller: AppBundle:PrivateMessage:removeMessage, id: null}
+  methods: [GET]
+

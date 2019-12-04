@@ -1,0 +1,21 @@
+{% extends "AppBundle:layouts:layout.html.twig" %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	<script src="{{ asset('node_modules/bootstrap/js/dist/custom/home.js') }}"></script>
+	<script type="text/javascript" >
+
+	</script>
+{% endblock %}
+
+{% block content %}
+	<div id="new-publication" class="col-lg-4 box-default pull-left">
+		<h1 class="box-header">Crear publicación</h1>
+
+		{{ form_start(form, {'action':'', 'method':'POST'}) }}
+		{{ form_errors(form) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "AppBundle:layouts:layout.html.twig" %}
+
+{% block content %}
+
+	<script src="{{ asset('node_modules/bootstrap/js/dist/custom/delete-users.js') }}"></script>
+  <script type="text/javascript" >
+  route_remove_user = '{{ path("remove_user") }}'; 
+  </script>
+
+  <header id="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10">
+          <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Panel de Control <small> Administrador del sitio</small></h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <section id="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="active"></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item active color-principal">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Panel de Control
+            </a>
+
+            <a href="{{ path("admin_publi") }}" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Publicaciones</a>
+
+            <a href="{{ path("admin_user") }}" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuarios</a>
+          </div>
+
+          <div class="well">
+            <h4>Espacio en disco</h4>
+            <div class="progress progress-striped active">
+              <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+              </div>
+            </div>
+
+            <h4>Ancho de banda </h4>
+            <div class="progress progress-striped active">
+              <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- últimos usuarios -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Últimos usuarios</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table table-responsive table-hover">
+             <thead>
+              <tr>
+               <th>Id</th>
+               <th>Role</th>
+               <th>Email</th>
+               <th>Nombre</th>
+               <th>Apellido</th>
+               <th>Nick</th>
+               <th>Active</th>
+             </tr>
+           </thead>
+           {% for user in users %}
+            <tr data-id="{{ user.id }}">
+             <td>{{ user.id }}</td>
+             <td>{{ user.role }}</td>
+             <td>{{ user.email }}</td>
+             <td>{{ user.name }}</td>
+             <td>{{ user.surname }}</td>
+             <td>{{ user.nick }}</td>
+             <td>{{ user.active }}</td>
+             <td class="actions">
+
+              <td><a href="{{ path('user_update', { id: user.id }) }}" class="btn btn-sm btn-primary">
+               Editar
+             </a></td>
+
+             <td><a href="{{ path('remove_user', { id: user.id }) }}" class="btn btn-sm btn-danger btn-delete">
+               Eliminar
+             </a></td>
+
+           </td>
+         </tr>
+       {% endfor %}
+     </table>
+   </div>
+ </div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+  {% endblock %}

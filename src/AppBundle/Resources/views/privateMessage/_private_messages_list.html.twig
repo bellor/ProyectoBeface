@@ -1,0 +1,76 @@
+{% block javascripts %}
+
+    <script src="{{ asset('node_modules/bootstrap/js/dist/custom/common.js') }}"></script>
+    <script type="text/javascript" >
+    route_notifications_messages = '{{ path("private_message_notification") }}'; 
+    </script>
+    <script type="text/javascript" >
+    route_remove_messages = '{{ path("remove_message") }}'; 
+    </script>
+{% endblock %}
+
+{% for message in private_messages %}
+    <div class="col-lg-12 publication-item">
+        <div class="avatar">
+            {% if message.emitter.image == null %}
+                <img src="{{ asset('node_modules/images/default.png') }}" alt="{{ message.emitter.nick }}">
+            {% else %}
+                <img src="{{ asset('uploads/media/'~message.emitter.id~'_usermedia/'~message.emitter.image) }}" alt="{{ message.emitter.nick }}">
+            {% endif %}
+        </div>
+
+        <div class="publication-item-content">
+            <p>
+                <a class="pub-name-link" href="{{ path('user_profile', {'nick': message.emitter.nick}) }}">
+                    {{ message.emitter.name }} {{ message.emitter.surname }}
+                </a>
+                -
+                {% if type == 'sended' %}
+                    Para
+                    <a style="font-weight: bold;" href="{{ path('user_profile', {'nick': message.receiver.nick}) }}">
+                        {{ message.receiver.nick }}
+                    </a>
+                {% else %}
+                    {{ message.emitter.nick }}
+                {% endif %}
+                -
+                <span class="pub-date">
+                    {{ message.createdAt|long_time }}
+                </span>
+            </p>
+
+            <p>{{ message.message }}</p>
+
+            {% if (message.file is defined) and (message.file != null) %}
+                <a href="{{ asset('uploads/media/'~message.emitter.id~'_usermedia/pmessages/documents/'~message.file) }}"
+                class="btn-doc glyphicon glyphicon-save" aria-hidden="true" target="_blank">
+            </a>
+        {% endif %}
+
+        {% if (message.image is defined) and (message.image != null) %}
+            <a href="{{ asset('uploads/media/'~message.emitter.id~'_usermedia/pmessages/images/'~message.image) }}"
+            class="btn-image glyphicon glyphicon-picture" aria-hidden="true" target="_blank">
+        </a>
+    {% endif %}
+
+
+    {% if (message.emitter.nick is defined) and (message.emitter.nick == app.user.nick) %}
+        <span data-id="{{ message.id}}" class="btn-delete-pub glyphicon glyphicon-trash" aria-hidden="true"></span>
+    {% endif %}
+
+
+
+    {% if (message.receiver.nick is defined) and (message.receiver.nick == app.user.nick) %}
+        <span data-id="{{ message.id }}" class="btn-delete-pub glyphicon glyphicon-trash" aria-hidden="true"></span>
+    {% endif %}
+
+</div>
+
+<div class="clearfix"></div>
+<hr />
+</div>
+{% endfor %}
+
+<div class="navigation">
+    {{ knp_pagination_render(private_messages) }}
+</div>

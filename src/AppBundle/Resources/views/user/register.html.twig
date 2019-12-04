@@ -1,0 +1,21 @@
+{% extends "AppBundle:layouts:layout.html.twig" %}
+
+{% block javascripts %}
+
+    <script src="{{ asset('node_modules/bootstrap/js/dist/custom/nick-test.js') }}"></script>
+    <script type="text/javascript" >
+    route_nick_test = '{{ path("user_nick_test") }}'; 
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-8 box-form form-register">
+        <h2>Registrarse</h2>
+        <hr>
+        {{ form_start(form, {'action':'', 'method':'POST'}) }}
+        {{ form_errors(form) }}
+        {{ form_end(form) }}
+        <br>
+        <p>Al crear una cuenta, usted acepta nuestro <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+    </div>
+{% endblock %}

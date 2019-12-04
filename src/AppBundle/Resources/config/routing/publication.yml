@@ -1,0 +1,30 @@
+# ROUTING PARA PÁGINA DE HOME
+home_publications:
+  path: /home
+  defaults: { _controller: AppBundle:Publication:publications }
+
+# ROUTING PARA ELIMINAR PUBLICACIONES
+remove_publication:
+  path: /publication/remove/{id}
+  defaults: { _controller: AppBundle:Publication:removePublication, id: null }
+  methods: [GET]
+
+
+
+# PARTE DEL ADMINISTRADOR
+
+# ROUTING PARA EL USUARIO ADMINISTRADOR PUBLICACIONES
+admin_publi:
+  path: /admin_publi
+  defaults: { _controller: AppBundle:Publication:configurePubli }
+
+# ROUTING PARA CONFIGURACIÓN PERFIL DEL USUARIOS DESDE ADMIN
+publi_update:
+  path: /publication/update/{id}
+  defaults: { _controller: AppBundle:Publication:publicationsAdmin }
+
+# ROUTING PARA ELIMINAR PUBLICACIONES ADMIN
+remove_publication_admin:
+  path: /publication/remove-admin/{id}
+  defaults: { _controller: AppBundle:Publication:removePublicationAdmin, id: null }
+  methods: [GET]
