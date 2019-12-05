@@ -1,65 +1,52 @@
 BEFACE
 ========================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+Bienvenido a Symfony Standard Edition, una aplicación Symfony totalmente funcional que puede usar como esqueleto para sus nuevas aplicaciones.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+Para obtener detalles sobre cómo descargar y comenzar a usar Symfony, consulte el capítulo Instalación de la Documentación de Symfony.
 
-What's inside?
---------------
+¿Qué hay adentro?
+Symfony Standard Edition está configurado con los siguientes valores predeterminados:
 
-The Symfony Standard Edition is configured with the following defaults:
+Un AppBundle que puede usar para comenzar a codificar;
 
-  * An AppBundle you can use to start coding;
+Twig como el único motor de plantillas configurado;
 
-  * Twig as the only configured template engine;
+Doctrina ORM / DBAL;
 
-  * Doctrine ORM/DBAL;
+Swiftmailer;
 
-  * Swiftmailer;
+Anotaciones habilitadas para todo.
 
-  * Annotations enabled for everything.
+Viene preconfigurado con los siguientes paquetes:
 
-It comes pre-configured with the following bundles:
+FrameworkBundle: el paquete básico de framework de Symfony
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+SensioFrameworkExtraBundle: agrega varias mejoras, incluidas la plantilla y la capacidad de anotación de enrutamiento
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+DoctrineBundle: agrega soporte para Doctrine ORM
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+TwigBundle: agrega soporte para el motor de plantillas Twig
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+SecurityBundle: agrega seguridad al integrar el componente de seguridad de Symfony
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+SwiftmailerBundle: agrega soporte para Swiftmailer, una biblioteca para enviar correos electrónicos
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
+MonologBundle: agrega soporte para Monolog, una biblioteca de registro
 
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
+WebProfilerBundle (en dev / test env): agrega la funcionalidad de creación de perfiles y la barra de herramientas de depuración web
 
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
+SensioDistributionBundle (en dev / test env): agrega funcionalidad para configurar y trabajar con distribuciones de Symfony
 
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
+SensioGeneratorBundle (en dev env) - Agrega capacidades de generación de código
 
-  * [**SensioGeneratorBundle**][13] (in dev env) - Adds code generation
-    capabilities
+WebServerBundle (en dev env): agrega comandos para ejecutar aplicaciones utilizando el servidor web incorporado de PHP
 
-  * [**WebServerBundle**][14] (in dev env) - Adds commands for running applications
-    using the PHP built-in web server
+DebugBundle (en dev / test env): agrega la integración de componentes de depuración y VarDumper
 
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
+Todas las bibliotecas y paquetes incluidos en Symfony Standard Edition se lanzan bajo la licencia MIT o BSD.
 
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
+¡Disfrutar!
 
 [1]:  https://symfony.com/doc/3.4/setup.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
